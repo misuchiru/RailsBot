@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  post '/callback' => 'line#echo'
+  post '/callback' => 'line#callback'
 end
