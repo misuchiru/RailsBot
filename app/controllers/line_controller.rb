@@ -33,5 +33,4 @@ class LineController < ApplicationController
     end
     "OK"
   end
-  end
 end
