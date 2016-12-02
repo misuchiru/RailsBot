@@ -36,7 +36,7 @@ class LineController < ApplicationController
           #   end
           #   response = client.reply_message(event['replyToken'], message)
           when Line::Bot::Event::MessageType::Location
-            say_message = event.message['text']
+            say_message = event.message['title']
             if say_message.include?("劍南北安組地點")
               message = {
                 "type": "location",
