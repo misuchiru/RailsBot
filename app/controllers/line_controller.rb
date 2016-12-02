@@ -23,10 +23,17 @@ class LineController < ApplicationController
         case event.type
         when Line::Bot::Event::MessageType::Text
           say_message = event.message['text']
-          message = {
-            type: 'text',
-            text: "reply: #{say_message}"
-          }
+          if say_message.include?("roy")
+            message = {
+              type: 'text',
+              text: "roy是白癡"
+            }
+          else
+            message = {
+              type: 'text',
+              text: "#{say_message}"
+            }
+          end
           response = client.reply_message(event['replyToken'], message)
         when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
           response = client.get_message_content(event.message['id'])
