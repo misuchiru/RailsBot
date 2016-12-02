@@ -23,13 +23,22 @@ class LineController < ApplicationController
         case event.type
           when Line::Bot::Event::MessageType::Text
             say_message = event.message['text']
-            if say_message.include?("劍南北安組")
+            case say_message
+            when "劍南北安組位置"
               message = {
                 "type": "location",
-                "title": "my location",
-                "address": "〒150-0002 東京都渋谷区渋谷２丁目２１−１",
-                "latitude": 35.65910807942215,
-                "longitude": 139.70372892916203
+                "title": "劍南地區北安組",
+                "address": "104台北市中山區大直街20巷11號1樓",
+                "latitude": 25.081426,
+                "longitude": 121.545654
+              }
+            when "劍南基湖組位置"
+              message = {
+                "type": "location",
+                "title": "劍南地區基湖組",
+                "address": "104台北市中山區北安路841巷2號2樓",
+                "latitude": 25.0847276,
+                "longitude": 121.5572759
               }
             end
             response = client.reply_message(event['replyToken'], message)
