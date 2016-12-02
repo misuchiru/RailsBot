@@ -21,24 +21,32 @@ class LineController < ApplicationController
       case event
       when Line::Bot::Event::Message
         case event.type
-        when Line::Bot::Event::MessageType::Text
-          say_message = event.message['text']
-          if say_message.include?("roy")
-            message = {
-              type: 'text',
-              text: "roy是白癡"
-            }
-          else
-            message = {
-              type: 'text',
-              text: "#{say_message}"
-            }
-          end
-          response = client.reply_message(event['replyToken'], message)
-        when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
-          response = client.get_message_content(event.message['id'])
-          tf = Tempfile.open("content")
-          tf.write(response.body)
+          when Line::Bot::Event::MessageType::Text
+            say_message = event.message['text']
+            if say_message.include?("roy")
+              message = {
+                type: 'text',
+                text: "roy是白癡"
+              }
+            else
+              message = {
+                type: 'text',
+                text: "#{say_message}"
+              }
+            end
+            response = client.reply_message(event['replyToken'], message)
+          when Line::Bot::Event::MessageType::Location
+            say_message = event.message['text']
+            if say_message.include?("劍南,北安")
+              message = {
+                "type": "location",
+                "title": "劍南地區北安組",
+                "address": "104台北市中山區大直街20巷11號",
+                "latitude": 25.081426,
+                "longitude": 121.545654
+              }
+            end
+            response = client.reply_message(event['replyToken'], message)
         end
       end
     end
